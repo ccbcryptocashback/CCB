@@ -29,7 +29,7 @@
 #include "ui_interface.h"
 #include "util.h"
 #include "utilmoneystr.h"
-
+#include "main.h"
 #include <sstream>
 
 #include <boost/algorithm/string/replace.hpp>
@@ -1619,6 +1619,38 @@ double ConvertBitsToDouble(unsigned int nBits)
 }
 
 int64_t GetBlockValue(int nHeight)
+
+{
+    int64_t nSubsidy = 0;
+    
+    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
+        if (nHeight < 3000 && nHeight > 0)
+            return 100 * COIN;
+    }
+
+    if (IsTreasuryBlock(nHeight)) {
+        LogPrintf("GetBlockValue(): this Coin Revival Block\n");
+        nSubsidy = GetTreasuryAward(nHeight);
+
+    } else {
+        if (nHeight == 1) {
+            nSubsidy = 500000 * COIN; //genesis
+        } else if (nHeight > 1 && nHeight <= 3000) {
+            nSubsidy = 1 * COIN;
+        } else if (nHeight > 3000 && nHeight <= 98800) { //Current reward on take over
+            nSubsidy = 100 * COIN;
+        } else if (nHeight > 98800 && nHeight <= 113200) { //First Halving with recover fee
+            nSubsidy = 72 * COIN;
+        } else if (nHeight > 113200 && nHeight <= 127600) { //Second Halving 
+            nSubsidy = 36 * COIN;
+        } else {
+            nSubsidy = 18 * COIN;   //Final reward after halvings
+        }
+    }
+    return nSubsidy;
+}
+
+/*    //Original Code
 {
  
 	if (nHeight == 1) return 500000 * COIN;
@@ -1634,17 +1666,70 @@ int64_t GetBlockValue(int nHeight)
     return nSubsidy;
 
 }
-
+*/
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
+
 {
+    int64_t ret = 0;
 
+    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
+        if (nHeight < 200)
+            return 0;
+    }
 
-	int64_t ret = 0;
-	
-        ret = blockValue * 0.7;
-	
-	return ret;
+    // 70% for Masternodes on current block
+    if (nHeight <= 98800) {
+        ret = blockValue * 0.70; //70%
+    } else if (nHeight > 98800 && nHeight <= 113200) {
+        ret = blockValue * 0.72; //72%
+    } else if (nHeight > 113200 && nHeight <= 127600) {
+        ret = blockValue * 0.74; //74%
+    } else {
+        ret = blockValue * 0.75; //74%
+    }
+
+    return ret;
+
+    //Old Masternode Reward Structure
+
+    //int64_t ret = 0;
+
+    // ret = blockValue * 0.70;
+
+    //return ret;
 }
+
+
+//Coin Revival blocks start at block 98800
+int nStartTreasuryBlock = 98800;
+int nTreasuryBlockStep = 1;
+
+//Checks to see if block count above is correct if not then no Coin Revival
+bool IsTreasuryBlock(int nHeight)
+{
+    if (nHeight < nStartTreasuryBlock)
+        return false;
+    else if ((nHeight - nStartTreasuryBlock) % nTreasuryBlockStep == 0)
+        return true;
+    else
+        return false;
+}
+
+//Coin Revival Reward payouts per halving per block
+int64_t GetTreasuryAward(int nHeight)
+{
+    if (IsTreasuryBlock(nHeight)) {
+        if (nHeight == nStartTreasuryBlock)
+            return 3.6 * COIN; //3.6 on start 5%
+        else if (nHeight > 113200 && nHeight <= 127600)
+            return 1.8 * COIN; //3.6 on second halving 5%
+        else if (nHeight >= 127600)
+            return 0.9 * COIN; //0.9 on last halving 5%
+    } else
+
+        return 0;
+}
+
 
 bool IsInitialBlockDownload()
 {

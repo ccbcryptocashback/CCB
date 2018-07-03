@@ -7,13 +7,12 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "chainparams.h"
-
 #include "random.h"
 #include "util.h"
 #include "utilstrencodings.h"
-
 #include <assert.h>
-
+#include "net.h"
+#include "base58.h"
 #include <boost/assign/list_of.hpp>
 
 
@@ -87,6 +86,7 @@ public:
     CMainParams()
     {
         networkID = CBaseChainParams::MAIN;
+        vTreasuryRewardAddress = "CUQ14UPfk74MrQF6KThhzq7JR4adfgBPns";
         strNetworkID = "main";
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -111,7 +111,7 @@ public:
         nLastPOWBlock = 500;
         nMaturity = 151;
         nMasternodeCountDrift = 20;
-	nMasternodeColleteralLimxDev = 5000; //Params().MasternodeColleteralLimxDev()
+		nMasternodeColleteralLimxDev = 5000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 1; // we use the version 2 for dmd
         nMaxMoneyOut = 50000000 * COIN;
 
@@ -129,16 +129,16 @@ public:
         genesis.nTime = 1525929087;
         genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 21334304;
-		
+
         hashGenesisBlock = genesis.GetHash();
-	//printf("%s\n", hashGenesisBlock.ToString().c_str());
-	//printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
+		//printf("%s\n", hashGenesisBlock.ToString().c_str());
+		//printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
         assert(hashGenesisBlock == uint256("0x00000a49ec81e566b6013e403ef710dae79742be34c920ec6ace4e0897879c7f"));
         assert(genesis.hashMerkleRoot == uint256("0x81b81664271f0942a2868283a1f658425b5a0de3d41161a8836ccf066108af49"));
         
 
-        vSeeds.push_back(CDNSSeedData("node1.ccb.cash", "node1.ccb.cash"));
-        vSeeds.push_back(CDNSSeedData("node2.ccb.cash", "node2.ccb.cash"));
+        vSeeds.push_back(CDNSSeedData("n1.ccbcoin.club", "n1.ccbcoin.club"));
+        vSeeds.push_back(CDNSSeedData("n2.ccbcoin.club", "n2.ccbcoin.club"));
         //vFixedSeeds.clear();
         //vSeeds.clear();
 
@@ -174,6 +174,22 @@ public:
         return data;
     }
 };
+
+std::string CChainParams::GetTreasuryRewardAddressAtHeight(int nHeight) const
+{
+    return vTreasuryRewardAddress;
+    
+}
+
+     CScript CChainParams::GetTreasuryRewardScriptAtHeight(int nHeight) const
+{
+    CBitcoinAddress address(GetTreasuryRewardAddressAtHeight(nHeight).c_str());
+    assert(address.IsValid());
+    CScript script = GetScriptForDestination(address.Get());
+    return script;
+    
+}
+
 static CMainParams mainParams;
 
 /**
