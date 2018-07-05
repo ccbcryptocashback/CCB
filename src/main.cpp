@@ -1637,14 +1637,14 @@ int64_t GetBlockValue(int nHeight)
             nSubsidy = 500000 * COIN; //genesis
         } else if (nHeight > 1 && nHeight <= 3000) {
             nSubsidy = 1 * COIN;
-        } else if (nHeight > 3000 && nHeight <= 98800) { //Current reward on take over
+        } else if (nHeight > 3000 && nHeight <= 110000) { //Current reward on take over
             nSubsidy = 100 * COIN;
-        } else if (nHeight > 98800 && nHeight <= 113200) { //First Halving with recover fee
+        } else if (nHeight > 110000 && nHeight <= 125000) { //First Reduction with recover fee
             nSubsidy = 72 * COIN;
-        } else if (nHeight > 113200 && nHeight <= 127600) { //Second Halving 
+        } else if (nHeight > 125000 && nHeight <= 140000) { //Second Reduction 
             nSubsidy = 36 * COIN;
         } else {
-            nSubsidy = 18 * COIN;   //Final reward after halvings
+            nSubsidy = 25 * COIN;   //Final reward after halvings
         }
     }
     return nSubsidy;
@@ -1678,11 +1678,11 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
     }
 
     // 70% for Masternodes on current block
-    if (nHeight <= 98800) {
+    if (nHeight <= 110000) {
         ret = blockValue * 0.70; //70%
-    } else if (nHeight > 98800 && nHeight <= 113200) {
+    } else if (nHeight > 110000 && nHeight <= 125000) {
         ret = blockValue * 0.72; //72%
-    } else if (nHeight > 113200 && nHeight <= 127600) {
+    } else if (nHeight > 125000 && nHeight <= 140000) {
         ret = blockValue * 0.74; //74%
     } else {
         ret = blockValue * 0.75; //74%
@@ -1701,8 +1701,8 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 
 
 //Coin Revival blocks start at block 98800
-int nStartTreasuryBlock = 98800;
-int nTreasuryBlockStep = 1;
+int nStartTreasuryBlock = 110000; //Starts at this block height
+int nTreasuryBlockStep = 1; //Happens every 1 block
 
 //Checks to see if block count above is correct if not then no Coin Revival
 bool IsTreasuryBlock(int nHeight)
@@ -1720,11 +1720,12 @@ int64_t GetTreasuryAward(int nHeight)
 {
     if (IsTreasuryBlock(nHeight)) {
         if (nHeight == nStartTreasuryBlock)
+            return 10000 * COIN; //10k on very first block 
+        else if (nHeight > 110001 && nHeight <= 125000)
             return 3.6 * COIN; //3.6 on start 5%
-		else if (nHeight > 113200 && nHeight <= 127600)
+        else if (nHeight > 125000 && nHeight <= 140000)
             return 1.8 * COIN; //3.6 on second halving 5%
-		
-        else if (nHeight >= 127600)
+		else if (nHeight >= 140000)
             return 0.9 * COIN; //0.9 on last halving 5%
     } else
 
