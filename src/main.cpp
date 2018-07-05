@@ -8,7 +8,7 @@
 
 #include "main.h"
 
-#include "addrman.h
+#include "addrman.h"
 #include "alert.h"
 #include "chainparams.h"
 #include "checkpoints.h"
