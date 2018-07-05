@@ -1701,8 +1701,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 
 
 //Coin Revival blocks start at block 98800
-int nStartTreasuryBlock = 79470; //Testing
-//int nStartTreasuryBlock = 98800;
+int nStartTreasuryBlock = 98800;
 int nTreasuryBlockStep = 1;
 
 //Checks to see if block count above is correct if not then no Coin Revival
@@ -1722,11 +1721,10 @@ int64_t GetTreasuryAward(int nHeight)
     if (IsTreasuryBlock(nHeight)) {
         if (nHeight == nStartTreasuryBlock)
             return 3.6 * COIN; //3.6 on start 5%
-		else if (nHeight > 79480 && nHeight <= 79490) //Testing
-       // else if (nHeight > 113200 && nHeight <= 127600)
+		else if (nHeight > 113200 && nHeight <= 127600)
             return 1.8 * COIN; //3.6 on second halving 5%
-		else if (nHeight >= 79490) //Testing
-       // else if (nHeight >= 127600)
+		
+        else if (nHeight >= 127600)
             return 0.9 * COIN; //0.9 on last halving 5%
     } else
 
