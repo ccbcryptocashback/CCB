@@ -86,7 +86,7 @@ public:
     CMainParams()
     {
         networkID = CBaseChainParams::MAIN;
-        vTreasuryRewardAddress = "CUQ14UPfk74MrQF6KThhzq7JR4adfgBPns";
+        vTreasuryRewardAddress = ""; //Need to circle back to add dev address
         strNetworkID = "main";
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -106,14 +106,14 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60;
-        nTargetSpacing = 1 * 60;
-        nLastPOWBlock = 500;
-        nMaturity = 151;
+        nTargetTimespan = 1 * 60; //1 Hour
+        nTargetSpacing = 1 * 60; //1 Hour
+        nLastPOWBlock = 200; //Changed from old 500 to new premine PoW stage
+        nMaturity = 60; //60 conf to be able to stake = 1hr
         nMasternodeCountDrift = 20;
 		nMasternodeColleteralLimxDev = 5000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 1; // we use the version 2 for dmd
-        nMaxMoneyOut = 50000000 * COIN;
+        nMaxMoneyOut = 100000000 * COIN; //100,000,00 max supply
 
         const char* pszTimestamp = "CryptoCashBack cryptocurrency";
         CMutableTransaction txNew;
