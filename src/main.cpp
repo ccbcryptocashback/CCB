@@ -1936,10 +1936,11 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
     } else {
         return GetSeeSaw(blockValue, nMasternodeCount, nHeight); // Start of seesaw rewards
     }
+    return ret;
 }
 
-return ret;
-}
+
+
 
 //Treasury blocks start from 70,000 and then each block after
 int nStartTreasuryBlock = 70000;
