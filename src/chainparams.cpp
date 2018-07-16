@@ -111,7 +111,7 @@ public:
         nLastPOWBlock = 200; //Changed from old 500 to new premine PoW stage
         nMaturity = 60; //60 conf to be able to stake = 1hr
         nMasternodeCountDrift = 20;
-		nMasternodeColleteralLimxDev = 5000; //Params().MasternodeColleteralLimxDev()
+		nMasternodeColleteralLimxDev = 10000; //Params().MasternodeColleteralLimxDev()
         nModifierUpdateBlock = 1; // we use the version 2 for dmd
         nMaxMoneyOut = 100000000 * COIN; //100,000,00 max supply
 
