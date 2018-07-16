@@ -29,7 +29,7 @@ View the CryptoCashBack [Explorer](http://chain.ccbcoin.club/)
 <tr><td>75000-100000</td><td>100 CCB</td><td rowspan=1>Final Increase </td><td>17.3 Days</td></tr>
 <tr><td>100000-125000</td><td>75 CCB</td><td rowspan=1>First Reduction </td><td>17.3 Days</td></tr>
 <tr><td>125000-150000</td><td>50 CCB</td><td rowspan=1>Second Reduction </td><td>17.3 Days</td></tr>
-<tr><td>150000-175000</td><td>25 CCB</td><td rowspan=1>Final Reduction </td><td>17.3 Days</td></tr>
+<tr><td>150000-Infinite</td><td>25 CCB</td><td rowspan=1>Final Reduction </td><td>17.3 Days</td></tr>
 
 </table>
 
