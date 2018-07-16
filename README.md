@@ -10,7 +10,7 @@ View the CryptoCashBack [Explorer](http://chain.ccbcoin.club/)
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
 <tr><td>Max Coin Supply </td><td>100,000,000 SMRTC</td></tr>
-<tr><td>Premine</td><td>4,000,000 SMRTC</td></tr>
+<tr><td>Premine</td><td>10,000,000 SMRTC</td></tr>
 </table>
 
 
