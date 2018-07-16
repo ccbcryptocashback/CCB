@@ -1658,31 +1658,6 @@ int64_t GetBlockValue(int nHeight)
     return nSubsidy;
 }
 
-int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
-
-{
-    int64_t ret = 0;
-
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if (nHeight < 200)
-            return 0;
-    }
-
-    // 70% for Masternodes on current block
-    if (nHeight <= 110000) {
-        ret = blockValue * 0.70; //70%
-    } else if (nHeight > 110000 && nHeight <= 125000) {
-        ret = blockValue * 0.72; //72%
-    } else if (nHeight > 125000 && nHeight <= 140000) {
-        ret = blockValue * 0.74; //74%
-    } else {
-        ret = blockValue * 0.75; //74%
-    }
-
-    return ret;
-}
-
-
 CAmount GetSeeSaw(const CAmount& blockValue, int nMasternodeCount, int nHeight)
 {
     //if a mn count is inserted into the function we are looking for a specific result for a masternode count
