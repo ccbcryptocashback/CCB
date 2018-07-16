@@ -1636,7 +1636,7 @@ int64_t GetBlockValue(int nHeight)
         if (nHeight == 0) {
             nSubsidy = 250 * COIN; //Genesis
         } else if (nHeight == 1) {
-            nSubsidy = 4000000 * COIN;             //Coin Swap / premine
+            nSubsidy = 10000000 * COIN;             //Coin Swap / premine
         } else if (nHeight > 1 && nHeight < 200) { //POW phase
             nSubsidy = 30 * COIN;
         } else if (nHeight > 200 && nHeight < 25000) { //Public pos and mn phase
