@@ -29,16 +29,17 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
     int paddingLeft = 9;
     int paddingTop = 526;
     int titleVersionVSpace = 17;
-    int titleCopyrightVSpace = 32;
+    int titleCopyrightVSpace = 34; //Old was 32
 
     float fontFactor = 1.0;
 
     // define text to place
     QString titleText = tr("CryptoCashBack Core");
-    QString versionText = tr("v1.0");
+    QString versionText = tr("v2.0");
     QString copyrightTextBtc = QChar(0xA9) + QString(" 2009-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin Core developers"));
     QString copyrightTextDash = QChar(0xA9) + QString(" 2014-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Dash Core and PIVX developers"));
     QString copyrightTextCCB = QChar(0xA9) + QString(" 2018-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The CryptoCashBack developers"));
+    QString copyrightTextTK = QChar(0xA9) + QString(" 2018-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("TKB TrowBack - TFinch"));
     QString titleAddText = networkStyle->getTitleAddText();
     QString font = QApplication::font().toString();
 
@@ -70,6 +71,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
     pixPaint.drawText(paddingLeft, paddingTop + titleCopyrightVSpace, copyrightTextBtc);
     pixPaint.drawText(paddingLeft, paddingTop + titleCopyrightVSpace + 12, copyrightTextDash);
     pixPaint.drawText(paddingLeft, paddingTop + titleCopyrightVSpace + 24, copyrightTextCCB);
+    pixPaint.drawText(paddingLeft, paddingTop + titleCopyrightVSpace + 48, copyrightTextTK);
 
     // draw additional text if special network
     if (!titleAddText.isEmpty()) {
